@@ -2,20 +2,21 @@ import React, {useRef, useState} from 'react'
 import {Canvas, useFrame} from 'react-three-fiber'
 
 
-const Cube = (props) => {
+const Cube = ({w, h, color, r, number, easter_eggs, stop}) => {
     const mesh = useRef()
 
+
     useFrame(() => {
-        mesh.current.rotation.x = mesh.current.rotation.y += 0.01
+        if (!stop) mesh.current.rotation.x = mesh.current.rotation.y += 0.01
     })
 
     return (
         <mesh
-            {...props}
             ref={mesh}>
-            <boxBufferGeometry args={[1, 1, 1]}/>
-            <meshStandardMaterial color='hotpink'/>
+            <boxBufferGeometry args={[w, h, 1]}/>
+            <meshStandardMaterial color={color}/>
         </mesh>
+
     )
 }
 

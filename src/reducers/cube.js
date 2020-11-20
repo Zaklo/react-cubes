@@ -2,7 +2,7 @@ export const initialState = {
     number: 0,
     cubes: [],
     cube_17: [],
-    frequency_cube_17 : 17 // TODO pour définir la fréquence des easter-eggs
+    frequency_cube_17: 17
 };
 
 export const reducer = (state, action) => {
@@ -11,10 +11,9 @@ export const reducer = (state, action) => {
 
         case "ADD_CUBE":
             const cube = {
-                w: 100,
-                h: 100,
-                cx: 50,
-                cy: 50,
+                w: 1,
+                h: 1,
+                color: `rgb(${Math.floor(Math.random() * Math.floor(255))},${Math.floor(Math.random() * Math.floor(255))},${Math.floor(Math.random() * Math.floor(255))})`,
                 number: state.number,
                 stop: false,
             };
@@ -58,7 +57,7 @@ export const reducer = (state, action) => {
 
         case "STOP_ODD":
             cubes = state.cubes.map((cube) => {
-                if (cube.number % 2 === 1) cube.stop = true;
+                cube.stop = true;
 
                 return {...cube};
             });

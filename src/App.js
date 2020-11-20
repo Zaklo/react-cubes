@@ -21,19 +21,20 @@ const App = () => {
                 ADD CUBE
             </Button>
             <Button primary onClick={() => dispatch({type: "SHUFFLE"})}>
-                SHUFFLE
+                SHUFFLE CUBES
             </Button>
             <Button primary onClick={() => dispatch({type: "STOP_ODD"})}>
-                STOP ODD NUMBER
+                STOP ALL CUBES
             </Button>
-            <Button primary onClick={() => dispatch({type: "START_ODD"})}>
-                START ODD NUMBER
+            <Button primary onClick={() => dispatch({type: "CHANGE_ODD"})}>
+                CHANGE ODD
             </Button>
-            <Canvas>
-                <ambientLight />
-                <pointLight position={[10, 10, 10]} />
+            <Canvas style={{height: '100vh', width: '90vw'}}>
+                <ambientLight/>
+                <pointLight position={[10, 10, 10]}/>
                 {cubes.length > 0 &&
-                cubes.map((cube, i) => <Cube key={i} {...cube}/>)}
+                cubes.map((cube, i) => <Cube key={i} {...cube} />)
+                }
             </Canvas>
         </>
     );
