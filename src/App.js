@@ -14,7 +14,7 @@ const App = () => {
             dispatch({type: 'CUBE_17', number: number})
         }
     }, [number]);
-
+    let position = [(number * 2 % 20 - 10), 5 - Math.floor(number / 10) * 2, -5];
     return (
         <>
             <Button onClick={() => dispatch({type: "ADD_CUBE"})}>
@@ -24,7 +24,7 @@ const App = () => {
                 SHUFFLE CUBES
             </Button>
             <Button primary onClick={() => dispatch({type: "STOP_ODD"})}>
-                STOP ALL CUBES
+                RESET ANIMATION
             </Button>
             <Button primary onClick={() => dispatch({type: "CHANGE_ODD"})}>
                 CHANGE ODD

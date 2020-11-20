@@ -5,8 +5,10 @@ export const initialState = {
     frequency_cube_17: 17
 };
 
+
 export const reducer = (state, action) => {
     let cubes;
+
     switch (action.type) {
 
         case "ADD_CUBE":
@@ -16,6 +18,7 @@ export const reducer = (state, action) => {
                 color: `rgb(${Math.floor(Math.random() * Math.floor(255))},${Math.floor(Math.random() * Math.floor(255))},${Math.floor(Math.random() * Math.floor(255))})`,
                 number: state.number,
                 stop: false,
+                animation: 0.01
             };
 
             return {
@@ -45,7 +48,7 @@ export const reducer = (state, action) => {
 
         case "CHANGE_ODD":
             cubes = state.cubes.map((cube) => {
-                if (cube.number % 2 === 1) cube.stop = false;
+                if (cube.number % 2 === 1) cube.animation = Math.random() / 10;
 
                 return {...cube};
             });
@@ -57,7 +60,7 @@ export const reducer = (state, action) => {
 
         case "STOP_ODD":
             cubes = state.cubes.map((cube) => {
-                cube.stop = true;
+                cube.animation = 0.01
 
                 return {...cube};
             });
