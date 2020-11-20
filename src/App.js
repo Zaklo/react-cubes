@@ -1,25 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+import {useReducer, useEffect} from "react";
+import {Canvas} from 'react-three-fiber';
+import Cube from "./Styles/Cube";
+import Button from "./Styles/Button";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import {initialState, reducer} from "./reducers/cube";
+
+const App = () => {
+    const [state, dispatch] = useReducer(reducer, initialState);
+    const {cubes, number} = state;
+
+    useEffect(() => {
+        if (number > 0 && number % 17 === 0) {
+            dispatch({type: 'CUBE_17', number: number})
+        }
+    }, [number]);
+
+    return (
+        <>
+            <Button onClick={() => dispatch({type: "ADD_CUBE"})}>
+                ADD CUBE
+            </Button>
+            <Button primary onClick={() => dispatch({type: "SHUFFLE"})}>
+                SHUFFLE
+            </Button>
+            <Button primary onClick={() => dispatch({type: "STOP_ODD"})}>
+                STOP ODD NUMBER
+            </Button>
+            <Button primary onClick={() => dispatch({type: "START_ODD"})}>
+                START ODD NUMBER
+            </Button>
+            <Canvas>
+                <ambientLight />
+                <pointLight position={[10, 10, 10]} />
+                {cubes.length > 0 &&
+                cubes.map((cube, i) => <Cube key={i} {...cube}/>)}
+            </Canvas>
+        </>
+    );
+};
 
 export default App;
