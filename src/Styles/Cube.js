@@ -1,11 +1,9 @@
-import React, {useRef, useState} from 'react'
+import React, {useRef } from 'react'
 import {useFrame} from 'react-three-fiber'
-import {cube_17} from "../actions/actions-types";
+import {Html} from 'drei';
 
-
-const Cube = ({w, h, color, r, number, easter_eggs, stop, animation, position}) => {
+const Cube = ({w, h, color, number, cube_17, stop, animation, position}) => {
     const mesh = useRef()
-
 
     useFrame(() => {
         if (!stop) {
@@ -13,14 +11,38 @@ const Cube = ({w, h, color, r, number, easter_eggs, stop, animation, position}) 
         }
     })
 
+    /*if (cube_17) {
+        return (
+            <mesh
+                ref={mesh}
+                position={position}
+            >
+                <sphereBufferGeometry args={[0.8, 32, 32]}/>
+                <meshStandardMaterial color='red'/>
+            </mesh>
+        )
+    }*/
+
     return (
-        <mesh
-            ref={mesh}
-            position={[(number * 2 % 20 - 10), 5 - Math.floor(number / 10) * 2, -5]}
-        >
-            <boxBufferGeometry args={[w, h,]}/>
-            <meshStandardMaterial color={color}/>
-        </mesh>
+        <>
+            <mesh
+                position={position}
+                ref={mesh}
+            >
+                {console.log(number)}
+
+
+
+                {!cube_17 ?  <boxBufferGeometry args={[w, h]}/> : <sphereBufferGeometry args={[0.8, 32, 32]}/>}
+                <meshStandardMaterial color={color}/>
+
+                <Html scaleFactor={10}>
+                    <div style={{marginTop: '100px'}}>
+                        {number}
+                    </div>
+                </Html>
+            </mesh>
+        </>
     )
 }
 

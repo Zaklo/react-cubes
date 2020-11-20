@@ -1,17 +1,17 @@
-export const initialState = {
-    number: 0,
-    cubes: [],
-    cube_17: [],
-    frequency_cube_17: 17
-};
+import {ADD_CUBE, SHUFFLE, CHANGE_ODD, STOP_ODD, CUBE_17} from '../constants/actions'
 
+export const initialState = {
+    number: 1,
+    cubes: [],
+    cube_17: false,
+};
 
 export const reducer = (state, action) => {
     let cubes;
 
     switch (action.type) {
 
-        case "ADD_CUBE":
+        case ADD_CUBE:
             const cube = {
                 w: 1,
                 h: 1,
@@ -25,30 +25,30 @@ export const reducer = (state, action) => {
                 ...state,
                 cubes: state.cubes.concat(cube),
                 number: state.number + 1,
+
             };
 
-        case 'CUBE_17':
+        case CUBE_17:
 
-            const {number} = action;
-
+            cubes = state.cubes.map(cube => ({...cube}))
+            cubes[state.cubes.length - 1].cube_17 = true
             return {
                 ...state,
-                cube_17: state.cube_17.concat(number)
+                cubes,
             }
 
-        case "SHUFFLE":
-            cubes = state.cubes.map(cube => ({...cube}));
 
-            cubes.sort(() => Math.random() - 0.5);
-
+        case SHUFFLE:
+            cubes = state.cubes.map(cube => ({...cube}))
+            cubes.sort(() => Math.random() - 0.5)
             return {
                 ...state,
-                cubes
-            };
+                cubes,
+            }
 
-        case "CHANGE_ODD":
+        case CHANGE_ODD:
             cubes = state.cubes.map((cube) => {
-                if (cube.number % 2 === 1) cube.animation = Math.random() / 10;
+                if (cube.number % 2 === 1) cube.animation = 0.05;
 
                 return {...cube};
             });
@@ -58,7 +58,7 @@ export const reducer = (state, action) => {
                 cubes,
             };
 
-        case "STOP_ODD":
+        case STOP_ODD:
             cubes = state.cubes.map((cube) => {
                 cube.animation = 0.01
 

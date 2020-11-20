@@ -14,7 +14,7 @@ const App = () => {
             dispatch({type: 'CUBE_17', number: number})
         }
     }, [number]);
-    let position = [(number * 2 % 20 - 10), 5 - Math.floor(number / 10) * 2, -5];
+
     return (
         <>
             <Button onClick={() => dispatch({type: "ADD_CUBE"})}>
@@ -27,13 +27,18 @@ const App = () => {
                 RESET ANIMATION
             </Button>
             <Button primary onClick={() => dispatch({type: "CHANGE_ODD"})}>
-                CHANGE ODD
+                CHANGE ODD ANIMATION
             </Button>
-            <Canvas style={{height: '100vh', width: '90vw'}}>
+            <Canvas style={{height: '100vh', width: '90vw'}} camera={{position: [0, 12, 7]}}>
                 <ambientLight/>
                 <pointLight position={[10, 10, 10]}/>
                 {cubes.length > 0 &&
-                cubes.map((cube, i) => <Cube key={i} {...cube} />)
+                cubes.map((cube, i) =>
+                    <Cube
+                        key={i}
+                        {...cube}
+                        position={[-3 + 1.7 * (i % 7), 0, 2 - 3 * (Math.floor(i / 7))]}
+                    />)
                 }
             </Canvas>
         </>
